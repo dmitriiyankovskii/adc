@@ -26,7 +26,7 @@ try:
     while(True):
         level = adc()
         voltage = (level/255)*3.3
-        print("числовое значение: "+level+" напряжение: "+voltage)
+        print(f"числовое значение: {level}, напряжение: {voltage:.2f}V")
 finally:
     GPIO.output(dac, 0)
     GPIO.cleanup(dac)
