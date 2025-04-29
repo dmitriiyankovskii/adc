@@ -21,12 +21,12 @@ def adc():
         time.sleep(0.001)
         if(GPIO.input(comp) == 0):
             GPIO.output(dac[i], 0)
-            list[i] = 0
+            list_[i] = 0
         elif(GPIO.input(comp) == 1):
             GPIO.output(dac[i], 1)
-            list[i] = 1
+            list_[i] = 1
     for k in range(8):
-        num = list_[i]*(2**(7-i))
+        num+= list_[k]*(2**(7-k))
     return num
 
 try:
@@ -41,5 +41,4 @@ try:
 finally:
     GPIO.output(dac, 0)
     GPIO.output(leds, 0)
-    GPIO.cleanup(dac)
-    GPIO.cleanup(leds)
+    GPIO.cleanup()

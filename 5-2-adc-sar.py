@@ -13,25 +13,26 @@ def decimal2binary(decimal):
     return [int(bit) for bit in bin(decimal)[2:].zfill(bits)]
 
 def adc():
+    num = 0
     list_ = [0, 0, 0, 0, 0, 0, 0, 0]
     for i in range(8):
         GPIO.output(dac[i], 1)
         time.sleep(0.001)
         if(GPIO.input(comp) == 0):
             GPIO.output(dac[i], 0)
-            list[i] = 0
+            list_[i] = 0
         elif(GPIO.input(comp) == 1):
             GPIO.output(dac[i], 1)
-            list[i] = 1
+            list_[i] = 1
     for k in range(8):
-        num = list_[i]*(2**(7-i))
+        num+= list_[k]*(2**(7-k))
     return num
 
 try:
     while(True):
         num = adc()
         voltage = (num/255)*3.3
-        print("числовое значение: "+num+" напряжение: "+voltage)
+        print(f"числовое значение: {num}, напряжение: {voltage:.2f}V")
 finally:
     GPIO.output(dac, 0)
-    GPIO.cleanup(dac)
+    GPIO.cleanup()
